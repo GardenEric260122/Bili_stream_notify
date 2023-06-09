@@ -137,6 +137,9 @@ async function showNotify (room_id) {
 
 async function saveFile (url, fileName) {
   return new Promise(resolve => {
+    if (url.startsWith('http:')) {
+      url = url.replace('http:', 'https:')
+    }
     https.get(url, (res) => {
       const file = fs.createWriteStream(fileName)
       res.pipe(file)
