@@ -4,8 +4,7 @@ const child_process = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
-// 监控 bilibili 直播间，显示系统通知进行提醒
-// 默认只在开播时发送通知
+// 监控 bilibili 直播间，在开播时显示系统通知进行提醒
 
 // 在下面的数组 [ ] 里配置要监控的直播间，每个花括号对 { }, 代表一个直播间
 // 预设了 2 个直播间位置，你可以根据自己的需要进行增删
@@ -24,7 +23,6 @@ const config = [
 
 // -------------以下部分无需修改-------------
 
-// 获取直播间数据
 function getLiveRoomData (room_id) {
   const url = `https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByRoom?room_id=${room_id}`
   https.get(url, res => {
@@ -50,7 +48,7 @@ function getLiveRoomData (room_id) {
 }
 
 function parseRoomData (room_id, json) {
-  // 如果房间号不存在那么 data 就是 null
+  // 如果房间号没有对应的直播间 data 就是 null；如果参数错误就没有 data
   if (json.data === null || json.data === undefined) {
     return
   }
@@ -138,16 +136,15 @@ async function saveFile (url, fileName) {
 function openURL (url) {
   // 判断平台
   switch (process.platform) {
-    // Mac 使用open
+    // Mac 使用 open
     case "darwin":
       child_process.spawn('open', [url])
       break
-    // Windows使用 start 报错了，我改为使用 exec
+    // 我在 Windows 上使用 spawn 报错了，改为使用 exec
     case "win32":
-      // child_process.spawn('start', [url])
       child_process.exec(`start ${url}`)
       break
-    // Linux等使用xdg-open
+    // Linux 等使用 xdg-open
     default:
       child_process.spawn('xdg-open', [url])
   }
@@ -169,7 +166,7 @@ let time_start = 0
 const add = 500 // 毫秒，如果有多个直播间，则每次请求错开一段时间，避免拥挤
 const interval = 60000  // 毫秒，每个直播间隔多长时间查询一次
 
-console.log('监控列表：')
+console.log('监控以下直播间：')
 room_list.forEach(room => {
   const tab = String(room.room_id).length < 8 ? '\t\t' : '\t'
   console.log(`${room.room_id}${tab}${room.name}`)
