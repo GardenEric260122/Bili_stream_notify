@@ -112,6 +112,9 @@ async function showNotify (room_id) {
     .replace('{title}', room.title)
     .replace('{room_id}', room.room_id)
 
+  const date = new Date().toLocaleString()
+  console.log(`${title} ${room.title} ${date}`)
+
   const fileName = path.resolve(__dirname + `/avatar_${room.room_id}.jpg`)
   await saveFile(room.avatar, fileName)
 
