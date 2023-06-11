@@ -107,7 +107,7 @@ async function showNotify (room, title) {
       // 点击 x 关闭：dismissed
       // 等待超时：timeout
       if (response === 'activate') {
-        const URL = `https://live.bilibili.com/${room_id}`
+        const URL = `https://live.bilibili.com/${room.room_id}`
         openURL(URL)
       }
     }
