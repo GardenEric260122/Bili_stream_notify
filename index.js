@@ -156,24 +156,13 @@ async function saveFile (url, fileName) {
         resolve();
         return;
       }
-      const file = fs.createWriteStream(fileName)
-      res.pipe(file)
+      const file = fs.createWriteStream(fileName);
+      res.pipe(file);
     
     //等待文件完全关闭后才resolve
     file.on('close',() => {
       resolve();
     });
-    /*
-      file.on('finish', () => {
-        file.close()
-        resolve()
-      })
-    }).on("error", (err) => {
-      console.log("Error: ", err.message)
-    })
-  })
-}
-    */
    file.on('error', (err) => {
     file.destroy();
     console.error("文件写入错误：", err.message);
@@ -186,10 +175,20 @@ async function saveFile (url, fileName) {
   });
   });
 }
-
+    /*
+      file.on('finish', () => {
+        file.close()
+        resolve()
+      })
+    }).on("error", (err) => {
+      console.log("Error: ", err.message)
+    })
+  })
+}
+    */
 function openURL(url) {
   open(url).catch((err)=>{
-    console.err('无法打开URL：', err);
+    console.error('无法打开URL：', err);
   });
 }
 /*
@@ -216,7 +215,7 @@ const room_list = config.map(cfg => {
   return {
     room_id: cfg.room_id,
     name: cfg.name,
-    status: -1,
+    status: 0,
     cover: '',
     avatar: '',
     title: '',
@@ -231,9 +230,10 @@ console.log('监控以下直播间：')
 room_list.forEach(room => {
   const tab = String(room.room_id).length < 8 ? '\t\t' : '\t'
   console.log(`${room.room_id}${tab}${room.name}`)
+  const current_delay = time_start
+  time_start += add
+  
   setTimeout(() => {
-    time_start += add
-
     // 启动时立即查询一次
     getLiveRoomData(room.room_id)
 
@@ -241,5 +241,5 @@ room_list.forEach(room => {
     setInterval(() => {
       getLiveRoomData(room.room_id)
     }, interval)
-  }, time_start)
+  }, current_delay)
 })
