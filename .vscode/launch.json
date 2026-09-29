@@ -4,9 +4,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "调试B站直播通知脚本",
+      "name": "调试脚本",
       "skipFiles": [
-        "<node_internals>/**" //自动跳过 Node 内置核心代码，只专注你写的代码
+        "<node_internals>/**" //自动跳过 Node 内置核心代码
       ],
       "program": "${workspaceFolder}/index.js", // 入口文件
       "restart": true, // 代码修改保存后，调试器会自动重新跑
