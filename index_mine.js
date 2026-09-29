@@ -4,6 +4,7 @@ const child_process = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const open = require('open');
+require('dotenv').config();
 
 // 监控 bilibili 直播间，在开播时显示系统通知进行提醒
 
@@ -44,7 +45,7 @@ function getLiveRoomData (room_id) {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Referer': 'https://live.bilibili.com/?spm_id_from=333.788.0.0',
         // 使用真实Cookies进行访问
-        'Cookie': "buvid3=901E1871-40C3-F837-4C10-9E46D5D2C9AF57548infoc; b_nut=1790608157; _uuid=D6386E48-9BC10-E3A7-B63E-AF71211AD101556531infoc; home_feed_column=5; browser_resolution=1458-747; buvid_fp=8a6aa647b65d247a924bed240babf780; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3OTA4NjczNTksImlhdCI6MTc5MDYwODA5OSwicGx0IjotMX0.aMNduNKUBjgx315grRX3SYpy9i8OitPyHP_GdEOIXgg; bili_ticket_expires=1790867299; buvid4=93B1E08C-F2C6-7857-77E4-458D7ECA5DCA18272-026010820-rWG27S8VM8w0YvPdKPlDmw%3D%3D; SESSDATA=a83280bd%2C1806208944%2Cea602%2A91CjDdOyEJSGvipELSCRU23smYcI9KnQOjRVehBSLuASR9WbGgpEDX4o_uKKImvWPyZa0SVnhjQTJVNTEwRFlTaVpCNjdVNEpoLVg4eEpPRHNnMEc2ZXlCaE1oT3VwSU9MbUhtLUcwaURjRDFnTG8tUnVVdVBmYndxOU01bVAtMUJ4SXpOLU4wM1NBIIEC; bili_jct=1f2c0e6829c93c1dde87f2bff8eef056; DedeUserID=34966405; DedeUserID__ckMd5=ef06bf889de689ec; CURRENT_QUALITY=0; sid=7qfjpimi; rpdid=|(kmRlm|Y|RY0J'u~m|YY|YRu; LIVE_BUVID=AUTO5017906617789623; bp_t_offset_34966405=1253422300519202816; CURRENT_FNVAL=4048; PVID=8; b_lsid=E10EBD99_1A0ECC8E651"
+        'Cookie': process.env.BILI_COOKIE
         }
    };
   https.get(url,options, res => {
@@ -149,7 +150,7 @@ async function saveFile (url, fileName) {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Referer': 'https://live.bilibili.com/?spm_id_from=333.788.0.0',
         // 使用真实Cookies进行访问
-        'Cookie': "buvid3=901E1871-40C3-F837-4C10-9E46D5D2C9AF57548infoc; b_nut=1790608157; _uuid=D6386E48-9BC10-E3A7-B63E-AF71211AD101556531infoc; home_feed_column=5; browser_resolution=1458-747; buvid_fp=8a6aa647b65d247a924bed240babf780; bili_ticket=eyJhbGciOiJIUzI1NiIsImtpZCI6InMwMyIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3OTA4NjczNTksImlhdCI6MTc5MDYwODA5OSwicGx0IjotMX0.aMNduNKUBjgx315grRX3SYpy9i8OitPyHP_GdEOIXgg; bili_ticket_expires=1790867299; buvid4=93B1E08C-F2C6-7857-77E4-458D7ECA5DCA18272-026010820-rWG27S8VM8w0YvPdKPlDmw%3D%3D; SESSDATA=a83280bd%2C1806208944%2Cea602%2A91CjDdOyEJSGvipELSCRU23smYcI9KnQOjRVehBSLuASR9WbGgpEDX4o_uKKImvWPyZa0SVnhjQTJVNTEwRFlTaVpCNjdVNEpoLVg4eEpPRHNnMEc2ZXlCaE1oT3VwSU9MbUhtLUcwaURjRDFnTG8tUnVVdVBmYndxOU01bVAtMUJ4SXpOLU4wM1NBIIEC; bili_jct=1f2c0e6829c93c1dde87f2bff8eef056; DedeUserID=34966405; DedeUserID__ckMd5=ef06bf889de689ec; CURRENT_QUALITY=0; sid=7qfjpimi; rpdid=|(kmRlm|Y|RY0J'u~m|YY|YRu; LIVE_BUVID=AUTO5017906617789623; bp_t_offset_34966405=1253422300519202816; CURRENT_FNVAL=4048; PVID=8; b_lsid=E10EBD99_1A0ECC8E651"
+        'Cookie': process.env.BILI_COOKIE
         }
    };
     // 同上，GET请求也要带请求头
