@@ -85,13 +85,13 @@ function parseRoomData (room_id, json) {
     room.status = status
     switch (status) {
       case 0:
-        // showNotify(room, '{name}尚未开播')
+        showNotify(room, '{name}尚未开播')
         break
       case 1:
         showNotify(room, '{name}正在直播')
         break
       case 2:
-        // showNotify(room, '{name}正在轮播')
+        showNotify(room, '{name}正在轮播')
         break
       default:
         console.log(`不知道啥情况。status ${status}`)
@@ -173,7 +173,7 @@ const room_list = config.map(cfg => {
   return {
     room_id: cfg.room_id,
     name: cfg.name,
-    status: 0,
+    status: -1,
     cover: '',
     avatar: '',
     title: '',
