@@ -15,23 +15,15 @@ require('dotenv').config();
 const config = [
   {
     room_id: 15128692,
-    name: ''
+    name: '一色雨'
   },
   {
     room_id: 27511091,
-    name: ''
+    name: '一条小糖糖'
   },
   {
-    room_id: 24530513,
-    name: ""
-  },
-    {
-    room_id: 1813441852,
-    name: ""
-  },
-  {
-    room_id: 25512443,
-    name: ""
+    room_id: 7301313,
+    name: '半步道长'
   }
 ]
 
@@ -220,7 +212,7 @@ const room_list = config.map(cfg => {
   return {
     room_id: cfg.room_id,
     name: cfg.name,
-    status: 0,
+    status: -1,
     cover: '',
     avatar: '',
     title: '',
