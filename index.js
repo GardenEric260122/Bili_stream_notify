@@ -14,19 +14,23 @@ const open = require('open');
 const config = [
   {
     room_id: 15128692,
-    name: '',
+    name: ''
   },
   {
     room_id: 27511091,
-    name: '',
+    name: ''
   },
   {
     room_id: 24530513,
-    name: "",
+    name: ""
   },
     {
     room_id: 1813441852,
-    name: "",
+    name: ""
+  },
+  {
+    room_id: 25512443,
+    name: ""
   }
 ]
 
