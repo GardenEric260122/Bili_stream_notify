@@ -94,7 +94,7 @@ function parseRoomData (room_id, json) {
         showNotify(room, '{name}正在轮播')
         break
       default:
-        console.log(`不知道啥情况。status ${status}`)
+        console.log(`不明状态码status ${status}`)
     }
   }
 }
@@ -133,14 +133,27 @@ async function showNotify (room, title) {
 }
 
 async function saveFile (url, fileName) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
+    // HTTPS加密访问
     if (url.startsWith('http:')) {
       url = url.replace('http:', 'https:')
     }
-    https.get(url, (res) => {
+    // 同上，GET请求也要带请求头
+    https.get(url, options, (res) => {
+      // 下载失败则停止下载。
+      if (res.statusCode !== 200) {
+        console.error(`头像下载失败，返回状态码：${res.statusCode}`);
+        resolve();
+        return;
+      }
       const file = fs.createWriteStream(fileName)
       res.pipe(file)
-
+    
+    //等待文件完全关闭后才resolve
+    file.on('close',() => {
+      resolve();
+    });
+    /*
       file.on('finish', () => {
         file.close()
         resolve()
@@ -149,6 +162,19 @@ async function saveFile (url, fileName) {
       console.log("Error: ", err.message)
     })
   })
+}
+    */
+   file.on('error', (err) => {
+    file.destroy();
+    console.error("文件写入错误：", err.message);
+    resolve();
+   });
+  }).on("error",(err) => {
+    // 网络错误时防止程序卡死
+    console.error("头像下载网络错误：", err.message);
+    resolve();
+  });
+  });
 }
 
 function openURL (url) {
