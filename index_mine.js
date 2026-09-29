@@ -1,8 +1,9 @@
-const https = require('https')
-const notifier = require('node-notifier')
-const child_process = require('child_process')
-const fs = require('fs')
-const path = require('path')
+const https = require('https');
+const notifier = require('node-notifier');
+const child_process = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const open = require('open');
 
 // 监控 bilibili 直播间，在开播时显示系统通知进行提醒
 
