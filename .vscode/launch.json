@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "调试B站直播通知脚本",
+      "skipFiles": [
+        "<node_internals>/**" //自动跳过 Node 内置核心代码，只专注你写的代码
+      ],
+      "program": "${workspaceFolder}/index.js", // 入口文件
+      "restart": true, // 代码修改保存后，调试器会自动重新跑
+      "console": "integratedTerminal" // 使用 VS Code 内置终端输出，方便看控制台打印
+    }
+  ]
+}
