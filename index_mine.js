@@ -6,27 +6,26 @@ const path = require('path');
 const open = require('open');
 require('dotenv').config();
 
+// 监控 bilibili 直播间，在开播时显示系统通知进行提醒
+
+// 在下面的数组 [ ] 里配置要监控的直播间，每个花括号对 { }, 代表一个直播间
+// 以下是示例直播间配置，你可以根据自己的需要进行增删
+// room_id 是直播间号，必填
+// name 可以留空，不写的话会使用主播的名字
 const config = [
   {
-    room_id: 12345678,
-    name: '张三'
+    room_id: 15128692,
+    name: '一色雨'
   },
   {
-    room_id: 87654321,
-    name: '李四'
+    room_id: 27511091,
+    name: '一条小糖糖'
+  },
+  {
+    room_id: 7301313,
+    name: '半步道长'
   }
 ]
-
-const room_list = config.map(cfg => {
-  return {
-    room_id: cfg.room_id,
-    name: cfg.name,
-    status: -1,
-    cover: '',
-    avatar: '',
-    title: '',
-  }
-})
 
 
 function getLiveRoomData (room_id) {
@@ -209,6 +208,17 @@ function openURL (url) {
 */
 
 // 启动
+const room_list = config.map(cfg => {
+  return {
+    room_id: cfg.room_id,
+    name: cfg.name,
+    status: -1,
+    cover: '',
+    avatar: '',
+    title: '',
+  }
+})
+
 let time_start = 0
 const add = 500 // 毫秒，如果有多个直播间，则每次请求错开一段时间，避免拥挤
 const interval = 60000  // 毫秒，每个直播间隔多长时间查询一次
